@@ -22,19 +22,22 @@ Route::get('/', function () {
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 
 Route::get('/posts/{post}', function ($slug) {
-    if (file_exists(resource_path('posts/'.$slug.'.html'))){
-        $post= file_get_contents(resource_path('posts/'.$slug.'.html'));
+    $path = resource_path('posts/' . $slug . '.html');
 
-        return view('posts.post',[
-            'post' => $post
-        ]);
+    if (!file_exists($path)) {
+        return redirect('/', 302);
     }
 
-    return redirect('/');
+    //cache the file for 10 secs
+    $post = cache()->remember("posts/{$slug}", 10, function () use ($path) {
+        return file_get_contents($path);
+    });
+    // $post = file_get_contents($path);
 
-
-
-});
+    return view('posts.post', [
+        'post' => $post
+    ]);
+})->where('post', '[A-z\-_]+');
 
 Auth::routes();
 

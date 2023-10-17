@@ -16,7 +16,7 @@
             <div class="card my-5 shadow-lg border-secondary border-opacity-50" style="width: 35rem;">
 
                 <div class="card-header text-center bg-info-subtle fw-bold ">
-                    <a href="/post">  My First Post </a>
+                    <a href="{{ url('posts/my-first-post') }}">  My First Post </a>
                 </div>
 
                 <div class="card-body text-center " style="height: 10rem;">
@@ -35,7 +35,7 @@
             <div class="card my-5 shadow-lg" style="width: 35rem;">
 
                 <div class="card-header text-center bg-info-subtle ">
-                    <a href="/post"> My Second Post </a>
+                    <a href="{{ url('posts/my-second-post') }}"> My Second Post </a>
                 </div>
 
                 <div class="card-body text-center" style="height: 10rem;">
@@ -54,7 +54,7 @@
             <div class="card my-5 shadow-lg" style="width: 35rem;">
 
                 <div class="card-header text-center bg-info-subtle ">
-                   <a href="/post"> My Third Post </a>
+                   <a href="{{ url('posts/my-third-post') }}"> My Third Post </a>
                 </div>
 
                 <div class="card-body text-center" style="height: 10rem;">
