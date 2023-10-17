@@ -8,6 +8,6 @@ class PostController extends Controller
 {
     public function index()
     {
-        echo "hello world xnnx";
+        return view('posts.posts');
     }
 }
