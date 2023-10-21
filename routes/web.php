@@ -1,5 +1,6 @@
 <?php
 
+use App\Core\Post;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,10 @@ Route::get('/', function () {
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 
 Route::get('/posts/{post}', function ($slug) {
+    //Find a post by its slug and pass it to a view called "post"
+    $post = Post::find($slug);
+    return view('posts.post', ['post' => $post]);
+
     $path = resource_path('posts/' . $slug . '.html');
 
     if (!file_exists($path)) {
