@@ -28,8 +28,7 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 
 Route::get('/posts/{post}', function ($slug) {
     //Find a post by its slug and pass it to a view called "post"
-    $post = Post::find($slug);
-
+    $post = Post::findOrFail($slug);
 
     return view('posts.post', [
         'post' => $post,

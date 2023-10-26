@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class Post
@@ -25,38 +29,40 @@ class Post
         $this->slug = $slug;
     }
 
+    public static function all(): Collection
+    {
+        return Cache::remember('posts.all',200, function () {
+            return collect(File::files(resource_path('posts/')))->map(function ($file) {
+                $document = YamlFrontMatter::parseFile($file);
+                return new Post(
+                    $document->title,
+                    $document->body(),
+                    $document->excerpt,
+                    $document->date,
+                    $document->slug
+                );
+            })->sortByDesc('date');
+        });
+    }
 
     public static function find($slug)
     {
         $path = resource_path('posts/' . $slug . '.html');
-
         if (!file_exists($path)) {
-            throw new ModelNotFoundException();
+            return false;
         }
-        $data = YamlFrontMatter::parseFile($path);
 
-        return  new Post($data->title, $data->body(), $data->excerpt, $data->date, $data->slug);
-
-        // return cache()->remember("posts{$slug}", 1000, fn() => new Post($data->title, $data->body(), $data->excerpt, $data->date, $data->slug)   );
-        //file_get_contents($path)
+        $posts = static::all();
+        return $posts->firstWhere('slug', $slug);
     }
 
-    public static function all()
-    {
-        $files = File::files(resource_path('posts/'));
+    public static function findOrFail($slug){
 
-        $posts =  array_map( function ($file) {
-            $document = YamlFrontMatter::parseFile($file);
-            return new Post(
-                $document->title,
-                $document->body(),
-                $document->excerpt,
-                $document->date,
-                $document->slug
-            );
+        $post = static::find($slug);
 
-        }, $files);
-
-        return $posts;
+        if(!$post){
+            throw new ModelNotFoundException();
+        }
+        return $post;
     }
 }

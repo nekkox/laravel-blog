@@ -5,6 +5,7 @@
 
       <h1>{{$post->title}}</h1>
       <p>{{$post->body}}</p>
+      <p>{{$post->date}}</p>
 
       <br />
       <a class="btn btn-outline-danger p-2 shadow-sm " href="{{url('posts')}}">Back to All Posts</a>
