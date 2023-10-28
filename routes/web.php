@@ -22,18 +22,21 @@ Route::get('/', function () {
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 
-
-
-
-
-Route::get('/posts/{post}', function ($slug) {
+//Post::where('slug', $post)->first();
+Route::get('/posts/{post}', function (Post $post) {
     //Find a post by its slug and pass it to a view called "post"
-    $post = Post::findOrFail($slug);
+
+   // $post = $post::find($post)->firstOrFail();
+   // $posts = Post::all();
+    //$post = $posts->find($post)->firstOrFail();
+   // ddd($post);
+
+
 
     return view('posts.post', [
         'post' => $post,
     ]);
-})->where('post', '[A-z\-_]+');
+});//->where('post', '[A-z\-_1-9]+');
 
 Auth::routes();
 
