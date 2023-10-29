@@ -5,6 +5,7 @@
         <div class="d-flex  flex-column align-items-center" style="height: 100vh;">
 
 
+
             @foreach($posts as $post)
                 <article>
                     <div class="card my-5 shadow-lg border-secondary border-opacity-50" style="width: 50rem; min-height: 15rem; max-height: 20rem">
@@ -16,7 +17,7 @@
                         </div>
                         <div class="card-footer">
                            Category:
-                            <a href="">{{ $post->category->name }}</a>
+                            <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a>
                         </div>
                     </div>
                 </article>
