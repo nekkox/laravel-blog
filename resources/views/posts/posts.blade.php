@@ -15,7 +15,8 @@
                         <p class=""> {{ $post->excerpt }} </p>
                         </div>
                         <div class="card-footer">
-                            {{ \Carbon\Carbon::translateTimeString(now()) }}
+                           Category:
+                            <a href="">{{ $post->category->name }}</a>
                         </div>
                     </div>
                 </article>
