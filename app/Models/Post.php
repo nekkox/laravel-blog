@@ -23,15 +23,21 @@ class Post extends Model
     }
 
     //Post belongs to a Category/ Onw category can have many posts
-    public function category():BelongsTo
+    public function category():BelongsTo //category_id
     {
         return $this->belongsTo(Category::class);
         // now we can do : $post->category->name
     }
 
-    public function user():BelongsTo
+    public function user():BelongsTo //user_id
     {
         return $this->belongsTo(User::class);
+        // now we can do : $post->author->name
+    }
+
+    public function author():BelongsTo //user_id
+    {
+        return $this->belongsTo(User::class, 'user_id');
         // now we can do : $post->author->name
     }
 

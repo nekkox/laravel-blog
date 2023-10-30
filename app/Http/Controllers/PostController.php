@@ -14,7 +14,7 @@ class PostController extends Controller
             logger($query->sql, $query->bindings);
         });*/
 
-        $posts = Post::with('category')->get();
+        $posts = Post::latest()->with('category','author')->get(); //eager loading
        // $posts = Post::all();
 
         return view('posts.posts')->with([

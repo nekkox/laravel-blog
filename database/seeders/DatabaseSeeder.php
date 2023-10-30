@@ -15,11 +15,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //need truncate() only if you don't migrate:fresh
         User::truncate();
         Category::truncate();
         Post::truncate();
 
-         User::factory(10)->create();
+     // $user = User::factory(10)->create();
+      //  Category::factory(1)->create();
+       // Post::factory(10)->create();
+
+         //Create fake data for everything but the users name
+     /* $user = User::factory()->create([
+            'name' => 'xxxx'
+        ]);*/
+
+      //all 5 posts will be written by $user
+    //  Post::factory(5)->create([
+    //      'category_id' => Category::factory()
+         // 'category_id' => $user->id
+    //  ]);
+
 
          Category::create([
              'name' => 'Personal',
@@ -45,23 +60,21 @@ class DatabaseSeeder extends Seeder
             'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aspernatur at atque consequuntur\r\ndignissimos, distinctio dolorem dolorum eaque eligendi hic illum in neque odit pariatur,\r\nperspiciatis quos suscipit veniam?'
         ]);
 
-        Post::create([
-            'category_id' => 1,
-            'user_id' => 1,
-            'title' => 'My Second Post',
-            'slug' => 'my-second-post',
-            'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aspernatur at atque consequuntur\r\ndignissimos, distinctio dolorem dolorum eaque eligendi hic illum in neque odit pariatur,\r\nperspiciatis quos suscipit veniam?'
+        Post::factory(2)->create([
+            'category_id' => 1
+            // 'category_id' => $user->id
         ]);
 
-        Post::create([
-            'category_id' => 2,
-            'user_id' => 2,
-            'title' => 'My Third Post',
-            'slug' => 'my-third-post',
-            'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aspernatur at atque consequuntur\r\ndignissimos, distinctio dolorem dolorum eaque eligendi hic illum in neque odit pariatur,\r\nperspiciatis quos suscipit veniam?'
+        Post::factory(2)->create([
+            'category_id' => 2
+            // 'category_id' => $user->id
         ]);
+
+        Post::factory(2)->create([
+            'category_id' => 3
+            // 'category_id' => $user->id
+        ]);
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

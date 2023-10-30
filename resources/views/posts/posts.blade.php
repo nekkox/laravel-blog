@@ -11,6 +11,8 @@
                     <div class="card my-5 shadow-lg border-secondary border-opacity-50" style="width: 50rem; min-height: 15rem; max-height: 20rem">
                         <div class="card-header text-center bg-dark-subtle fw-bold ">
                             <a href="{{ url('posts/'.$post->slug) }}"> {{$post->title}} </a>
+                            <p class="text-start">By <a href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in  <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a> </p>
+
                         </div>
                         <div class="card-body text-center overflow-hidden inner " style="height: auto;">
                         <p class=""> {{ $post->excerpt }} </p>
