@@ -15,6 +15,7 @@ class Post extends Model
         'body'
     ];*/
 
+    //protected $with = ['author', 'category']; //eager loading relationships
     protected $guarded = [];
 
     public function getRouteKeyName()
