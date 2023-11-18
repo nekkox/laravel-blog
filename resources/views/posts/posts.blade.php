@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid " style="background: radial-gradient(circle, rgba(169,16,121,1) 0%, rgba(64,4,80,1) 61%, rgba(46,2,73,1) 100%) no-repeat;">
-        <div class="d-flex  flex-column align-items-center" style="height: 100vh;">
+    <div class="container-fluid " style=" background: radial-gradient(circle, rgba(169,16,121,1) 0%, rgba(64,4,80,1) 61%, rgba(46,2,73,1) 100%) no-repeat;  ">
+        <div class="d-flex  flex-column align-items-center" style="height: 100vh">
 
 
 

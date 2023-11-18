@@ -15,7 +15,8 @@ class Post extends Model
         'body'
     ];*/
 
-    //protected $with = ['author', 'category']; //eager loading relationships
+    protected $with = ['author', 'category']; //eager loading relationships
+
     protected $guarded = [];
 
     public function getRouteKeyName()
@@ -23,7 +24,7 @@ class Post extends Model
         return 'slug';
     }
 
-    //Post belongs to a Category/ Onw category can have many posts
+    //Post belongs to a Category/ On category can have many posts
     public function category():BelongsTo //category_id
     {
         return $this->belongsTo(Category::class);
