@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 Route::get('/dog/{name}', function ($name){
-ddd(App\Models\User::first()->posts());
-    return 'hello';
+    return view('dog');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
