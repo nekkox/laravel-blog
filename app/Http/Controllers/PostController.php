@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\View\View;
 
@@ -15,10 +16,12 @@ class PostController extends Controller
         });*/
 
         $posts = Post::latest()->with('category','author')->get(); //eager loading
+
        // $posts = Post::all();
 
         return view('posts.posts')->with([
-            'posts'=>$posts
+            'posts'=>$posts,
+            'categories'=>Category::all()
         ]);
     }
 }

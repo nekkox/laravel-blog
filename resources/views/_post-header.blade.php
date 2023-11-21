@@ -16,7 +16,9 @@
         <div class="relative lg:inline-flex  bg-gray-100 rounded-xl">
 
             <div x-data="{show: false}" @click.away="show=false">
-                <button @click="show = !show" class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-32 text-left inline-flex items-center">Cegories
+                <button @click="show = !show"
+                        class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-32 text-left inline-flex items-center">
+                    {{ isset($currentCategory) ? $currentCategory->name : 'Category' }}
 
                     <svg class="transform -rotate-90 absolute pointer-events-none" style="right: 12px;" width="22"
                          height="22" viewBox="0 0 22 22">
@@ -31,9 +33,15 @@
                 </button>
 
                 <div x-show="show" class="py-2 absolute bg-gray-100 mt-2 rounded-xl w-full z-50" style="display: none">
-                    <a href="#" class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white  ">xxxx</a>
-                    <a href="#" class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white">yyyyy</a>
-                    <a href="#" class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white">A longer link</a>
+                    <a href="/posts/"
+                       class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white">All</a>
+                    @foreach($categories as $category)
+                        <a href="/categories/{{$category->slug}}" class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white
+                        {{isset($currentCategory) && $currentCategory->is($category) ? 'bg-blue-500 text-white' : ''}}
+                        {{-- {{ isset($currentCategory) && $currentCategory->$category->id ? 'bg-blue-500 text-white' : '' }} --}}
+                        "> {{$category->name}} </a>
+                    @endforeach
+
                 </div>
 
             </div>
