@@ -8,7 +8,8 @@
                     <img src="/images/illustration-7.jpg" alt="" class="rounded-xl">
 
                     <p class="mt-4 block text-gray-400 text-xs">
-                        Published <time>{{$post->created_at->diffForHumans()}}</time>
+                        Published
+                        <time>{{$post->created_at->diffForHumans()}}</time>
                     </p>
 
                     <div class="flex items-center lg:justify-center text-sm mt-4">
@@ -38,9 +39,7 @@
                         </a>
 
                         <div class="space-x-2">
-                            <a href="/categories/{{ $post->category->slug }}"
-                               class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                               style="font-size: 10px">{{ $post->category->name }}</a>
+                            <x-category-button :category="$post->category"/>
                         </div>
                     </div>
 
@@ -50,22 +49,23 @@
 
                     <div class="space-y-4 lg:text-lg leading-loose">
                         <p>{{$post->body}}</p>
+
                     </div>
                 </div>
             </article>
         </main>
     </section>
 
-{{--    <article class="container p-5 lh-base fst-normal fs-5 " style="width: 50rem;">
+    {{--    <article class="container p-5 lh-base fst-normal fs-5 " style="width: 50rem;">
 
-        <h1>{{$post->title}}</h1>
-        <p>By <a href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a
-                href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
-        <p>{{$post->body }}</p>
+            <h1>{{$post->title}}</h1>
+            <p>By <a href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a
+                    href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+            <p>{{$post->body }}</p>
 
 
-        <a class="btn btn-outline-danger p-2 shadow-sm " href="{{ url('posts') }}">Back to All Posts</a>
+            <a class="btn btn-outline-danger p-2 shadow-sm " href="{{ url('posts') }}">Back to All Posts</a>
 
-    </article>--}}
+        </article>--}}
 
 </x-layout>
