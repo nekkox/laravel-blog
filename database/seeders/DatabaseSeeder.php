@@ -75,6 +75,9 @@ class DatabaseSeeder extends Seeder
             // 'category_id' => $user->id
         ]);
 
+        Category::factory(20)->create();
+        Post::factory(30)->create();
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

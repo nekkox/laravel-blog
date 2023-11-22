@@ -3,7 +3,7 @@
         Latest <span class="text-blue-500"> From Scratch</span> News
     </h1>
 
-    <h2 class="inline-flex mt-2 ">By Kitty Cat <img width="39px" height="29px" src="images/head.png"
+    <h2 class="inline-flex mt-2 ">By Kitty Cat <img width="39px" height="29px" src="/images/head.png"
                                                     alt="Head of Kitty"></h2>
 
     <p class="text-sm mt-14">
