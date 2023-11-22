@@ -28,7 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts', [PostController::class, 'index'])->name('home');
 
 //Post::where('slug', $post)->first();
 Route::get('/posts/{post}', function (Post $post) {
