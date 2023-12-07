@@ -11,17 +11,32 @@ class PostController extends Controller
     //Show all posts
     public function index(): View
     {
-       /* DB::listen(function ($query){
-            logger($query->sql, $query->bindings);
-        });*/
+        /* DB::listen(function ($query){
+             logger($query->sql, $query->bindings);
+         });*/
 
-        $posts = Post::latest()->with('category','author')->get(); //eager loading
+        // $posts = Post::all();
+        $posts = Post::latest(); // Get all posts if not searching anything
+        // $posts = Post::latest()->with('category','author')->get(); //with eager loading
 
-       // $posts = Post::all();
+        //if 'search' in request then:
+        if (request('search')) {
+            $posts = $posts
+                ->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
 
         return view('posts.posts')->with([
-            'posts'=>$posts,
-            'categories'=>Category::all()
+            'posts' => $posts->get(),
+            'categories' => Category::all()
+        ]);
+    }
+
+    //show single post
+    public function show(Post $post)
+    {
+        return view('posts.post', [
+            'post' => $post,
         ]);
     }
 }

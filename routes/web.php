@@ -26,18 +26,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('root');
 
 Route::get('/posts', [PostController::class, 'index'])->name('home');
 
 //Post::where('slug', $post)->first();
-Route::get('/posts/{post}', function (Post $post) {
-    //Find a post by its slug and pass it to a view called "post"
-
-    return view('posts.post', [
-        'post' => $post,
-    ]);
-})->where('post', '[A-z\-_1-9]+')->name('posts2');
+//Find a post by its slug and pass it to a view called "post"
+Route::get('/posts/{post}', [PostController::class, 'show'])
+    ->where('post', '[A-z\-_1-9]+')->name('posts2');
 
 
 Route::get('/categories/{category:slug}', function (Category $category) {
