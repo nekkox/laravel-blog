@@ -15,19 +15,8 @@ class PostController extends Controller
              logger($query->sql, $query->bindings);
          });*/
 
-        // $posts = Post::all();
-        $posts = Post::latest(); // Get all posts if not searching anything
-        // $posts = Post::latest()->with('category','author')->get(); //with eager loading
-
-        //if 'search' in request then:
-        if (request('search')) {
-            $posts = $posts
-                ->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-        }
-
         return view('posts.posts')->with([
-            'posts' => $posts->get(),
+            'posts' => $this->getPosts(),
             'categories' => Category::all()
         ]);
     }
@@ -39,4 +28,24 @@ class PostController extends Controller
             'post' => $post,
         ]);
     }
+
+    public function getPosts()
+    {
+
+        // $posts = Post::all();
+        $posts = Post::latest(); // Get all posts if not searching anything
+        // $posts = Post::latest()->with('category','author')->get(); //with eager loading
+
+        //if 'search' in request then:
+        if (request('search')) {
+            $posts
+                ->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
+
+        return $posts->get();
+
+    }
+
+
 }
