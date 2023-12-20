@@ -44,14 +44,17 @@ class Post extends Model
     }
 
     //Creating query scope functions (automaticly access query Builder)
-    public function scopeFilter($query)
+    public function scopeFilter($query, array $filters)
     {
-        //if 'search' parameter in request then:
-        if(request('search')){
+        //Used when() method of Collections because Models should have access to request
+        //the 'search parameter of the request is passed in $filters array
+        $query->when(($filters['search'] ?? false), function ($query, $searchedValue){
+
             $query
-                ->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-        }
+                ->where('title', 'like', '%' . $searchedValue . '%')
+                ->orWhere('body', 'like', '%' . $searchedValue . '%');
+
+        });
     }
 
 }

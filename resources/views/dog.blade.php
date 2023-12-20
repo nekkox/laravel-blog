@@ -53,4 +53,37 @@
 //echo join($string) . "<br>";
   //echo join($digit) . "<br>";
 
+$functions = array();
+
+function add(int $num1, int $num2) : int{
+    return $num1 + $num2;
+};
+
+function minus(int $num1, int $num2) : int{
+    return $num1 - $num2;
+}
+
+function div(int $num1, int $num2) : int{
+    if($num1 === 0){
+        throw new Exception("Division by zero");
+    }
+    return $num1 / $num2;
+}
+
+echo '<br>';
+try {
+   $result =  div(10,4);
+   echo  $result;
+ }
+ catch(Exception $e) {
+    echo "Error: " . $e->getMessage(). '<br>';
+ }
+
+ //ddd($functions);
+echo '<br>';
+array_push($functions,'add', 'minus', 'div');
+echo '<br>';
+
+var_dump($functions);
+echo call_user_func($functions[0], 5,4);
 @endphp
