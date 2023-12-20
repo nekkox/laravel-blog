@@ -17,7 +17,7 @@ class Post extends Model
 
     protected $with = ['author', 'category']; //eager loading relationships
 
-    protected $guarded = [];
+  //  protected $guarded = [];
 
     public function getRouteKeyName()
     {
@@ -41,6 +41,16 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
         // now we can do : $post->author->name
+    }
+
+    //Creating query scope functions (automaticly access query Builder)
+    public function scopeFilter($query)
+    {
+        if(request('search')){
+            $query
+                ->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
     }
 
 }

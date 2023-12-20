@@ -32,19 +32,23 @@ class PostController extends Controller
     public function getPosts()
     {
 
-        // $posts = Post::all();
-        $posts = Post::latest(); // Get all posts if not searching anything
+        // $posts = Post::all() - Collection returned;
+     //   $posts = Post::latest(); // -returing Eloquent\Builder  // Get all posts if not searching anything
         // $posts = Post::latest()->with('category','author')->get(); //with eager loading
 
         //if 'search' in request then:
-        if (request('search')) {
+        //classical way
+        /*if (request('search')) {
             $posts
                 ->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('body', 'like', '%' . request('search') . '%');
         }
+zz
+        return $posts->get();*/
 
-        return $posts->get();
-
+        //Laravel Scope query way:
+        $posts = Post::latest()->filter();
+        return  $posts->get();
     }
 
 
