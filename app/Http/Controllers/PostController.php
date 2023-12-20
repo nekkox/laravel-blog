@@ -16,7 +16,8 @@ class PostController extends Controller
          });*/
 
         return view('posts.posts')->with([
-            'posts' => $this->getPosts(),
+            //is 'search param in request then filter() else we get all posts
+            'posts' => Post::latest()->filter()->get(), //filter is query scope function created inside Post Model
             'categories' => Category::all()
         ]);
     }
@@ -28,28 +29,5 @@ class PostController extends Controller
             'post' => $post,
         ]);
     }
-
-    public function getPosts()
-    {
-
-        // $posts = Post::all() - Collection returned;
-     //   $posts = Post::latest(); // -returing Eloquent\Builder  // Get all posts if not searching anything
-        // $posts = Post::latest()->with('category','author')->get(); //with eager loading
-
-        //if 'search' in request then:
-        //classical way
-        /*if (request('search')) {
-            $posts
-                ->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-        }
-zz
-        return $posts->get();*/
-
-        //Laravel Scope query way:
-        $posts = Post::latest()->filter();
-        return  $posts->get();
-    }
-
 
 }

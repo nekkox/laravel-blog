@@ -46,6 +46,7 @@ class Post extends Model
     //Creating query scope functions (automaticly access query Builder)
     public function scopeFilter($query)
     {
+        //if 'search' parameter in request then:
         if(request('search')){
             $query
                 ->where('title', 'like', '%' . request('search') . '%')
