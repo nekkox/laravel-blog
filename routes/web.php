@@ -24,11 +24,9 @@ Route::get('/dog/{name}', function ($name){
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('root');
+Route::get('/', function () { return view('welcome');})->name('root');
 
-Route::get('/posts', [PostController::class, 'index'])->name('home');
+Route::get('/posts', [PostController::class, 'index'])->name('MainPosts');
 
 //Post::where('slug', $post)->first();
 //Find a post by its slug and pass it to a view called "post"
@@ -54,4 +52,24 @@ Route::get('/authors/{author:username}', function (User $author) {
     ]);
 })->name('authors');
 
+Route::get('dogs/{nameofdog?}',
+function($nameofdog = null) {
 
+    $dogs = ["Vego", "Beco", "Axel" ,"Vitto"];
+    $theDogs = collect($dogs);
+return view('test', ['dogs'=> $theDogs]);
+}
+
+)->name('dogs');
+
+Route::get('/json', function() {
+    return ['dog'=>'vego'];
+});
+
+Route::get('/about', function() {
+    return view('about');
+});
+
+Route::get('/contact', function() {
+    return view('contact');
+});

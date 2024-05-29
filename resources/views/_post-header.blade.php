@@ -33,7 +33,7 @@
                     <x-dropdown-item
                         {{-- :active="isset($currentCategory) && $currentCategory->is($category)" --}}
                             :active="request()->is('categories/' . $category->slug)"
-                        href="/categories/{{ $category->slug }}">{{ $category->name }}</x-dropdown-item>
+                        href="/posts/?category={{ $category->slug }}">{{ $category->name }}</x-dropdown-item>
                 @endforeach
 
             </x-dropdown>
