@@ -35,20 +35,18 @@ Route::get('/posts/{post}', [PostController::class, 'show'])
 
 
 Route::get('/categories/{category:slug}', function (Category $category) {
-
-    return view('posts.posts', [
+    return view('posts.index', [
         'posts' => $category->posts->load(['category', 'author']), //eager loads the given relationships
-        'categories'=>Category::all()->load(['posts']),
-        'currentCategory' => $category->load(['posts'])
+       // 'categories'=>Category::all()->load(['posts']),
+        //'currentCategory' => $category,
     ]);
 })->name('categories');
 
 
 Route::get('/authors/{author:username}', function (User $author) {
-
-    return view('posts.posts', [
+    return view('posts.index', [
         'posts' => $author->posts->load(['category', 'author']),
-        'categories'=>Category::all()->load(['posts'])
+       // 'categories'=>Category::all()->load(['posts'])
     ]);
 })->name('authors');
 

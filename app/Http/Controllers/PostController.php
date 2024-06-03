@@ -15,18 +15,18 @@ class PostController extends Controller
              logger($query->sql, $query->bindings);
          });*/
 
-        return view('posts.posts')->with([
+        return view('posts.index')->with([
             //is 'search param in request then filter() else we get all posts
-            'posts' => Post::latest()->filter(request(['search', 'category']))->get(), //filter is query scope function created inside Post Model
-            'categories' => Category::all(),
-            'currentCategory'=> Category::firstWhere('slug', request('category'))
+            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->get(), //filter is query scope function created inside Post Model
+           // 'categories' => Category::all(),
+            //'currentCategory'=> Category::firstWhere('slug', request('category'))
         ]);
     }
 
     //show single post
     public function show(Post $post)
     {
-        return view('posts.post', [
+        return view('posts.show', [
             'post' => $post,
         ]);
     }

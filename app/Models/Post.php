@@ -51,22 +51,32 @@ class Post extends Model
         //Used when() method of Collections because Models should have access to request
         //the 'search parameter of the request is passed in $filters array
         $query->when(($filters['search'] ?? false), function ($query, $searchedValue) {
-            $query
-                ->where('title', 'like', '%' . $searchedValue . '%')
-                ->orWhere('body', 'like', '%' . $searchedValue . '%');
+            $query->where(fn($query) => $query->where('title', 'like', '%' . $searchedValue . '%')
+                ->orWhere('body', 'like', '%' . $searchedValue . '%'));
         });
 
         //Filter post according to their category
-        $query->when(($filters['category'] ?? false), fn($query, $category) => $query->whereExists(fn( $query) => $query->from('categories')
+        $query->when(($filters['category'] ?? false), fn($query, $category) => $query->whereExists(fn($query) => $query->from('categories')
             ->whereColumn('categories.id', 'posts.category_id')
             ->where('categories.slug', $category))
         );
 
+        //Filter post according to their author
+
+        $query->when(($filters['author'] ?? false), fn($query, $author) => $query->whereExists(fn($query) => $query->from('users')
+            ->whereColumn('users.id', 'posts.user_id')
+            ->where('users.username', $author))
+        );
+        /*
+        $query->when(($filters['author'] ?? false), fn($query, $author) =>
+        $query->whereHas('author', fn($query)=>$query->where('username', $author))
+        );
+        */
         //Give Post with specific category given in request
         //or we can use whereHas method
         /*
         $query->when(($filters['category'] ?? false), fn($query, $category) =>
         $query->whereHas('category', fn($query)=> $query->where('slug', $category)));
     */
-        }
+    }
 }

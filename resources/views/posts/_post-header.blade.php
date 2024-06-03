@@ -1,3 +1,7 @@
+
+@php
+
+ @endphp
 <header class="max-w-xl mx-auto mt-20 text-center">
     <h1 class="text-4xl">
         Latest <span class="text-blue-500"> From Scratch</span> News
@@ -15,28 +19,9 @@
         <!--  Category -->
         <div class="relative lg:inline-flex bg-gray-100 rounded-xl">
 
-            <x-dropdown>
+           <x-category-dropdown />
 
-                {{-- Defining trigger slot --}}
-                <x-slot name="trigger">
-                    <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-32 text-left inline-flex items-center">
-                        {{ isset($currentCategory) ? $currentCategory->name : 'Category' }}
 
-                        <x-icon name="dropdown-arrow" class="absolute pointer-events-none" />
-
-                    </button>
-                </x-slot>
-
-                    {{--All goes into $Slot in dropdown component --}}
-                <x-dropdown-item href="/posts/" :active="request()->routeIs('home')">All</x-dropdown-item>
-                @foreach($categories as $category)
-                    <x-dropdown-item
-                        {{-- :active="isset($currentCategory) && $currentCategory->is($category)" --}}
-                            :active="request()->is('categories/' . $category->slug)"
-                        href="/posts/?category={{ $category->slug }}">{{ $category->name }}</x-dropdown-item>
-                @endforeach
-
-            </x-dropdown>
 
         </div>
 
@@ -64,12 +49,24 @@
 
         <!-- Search -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
-            <form method="GET" action="#">
+            <form method="GET" action="/posts/">
+
+                @if(request('category'))
+
+                    <input type="hidden" name="category" value="{{request('category')}}">
+
+                @endif
+
+
+
+
+
                 <input type="text"
                        name="search"
                        placeholder="Find something"
                        class="bg-transparent placeholder-black font-semibold text-sm"
                        value="{{ request('search') }}">
+
             </form>
         </div>
     </div>
