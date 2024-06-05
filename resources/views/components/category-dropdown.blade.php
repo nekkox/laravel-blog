@@ -16,7 +16,7 @@
     </x-slot>
 
     {{--All goes into $Slot in dropdown component --}}
-    <x-dropdown-item href="/posts/" :active="request()->routeIs('home')">All</x-dropdown-item>
+    <x-dropdown-item href="/posts/?{{http_build_query(request()->except('category','page'))}}" :active="request()->routeIs('home')">All</x-dropdown-item>
 
     @foreach($categories as $category)
 
@@ -24,6 +24,6 @@
 
             {{-- :active="isset($currentCategory) && $currentCategory->is($category)" --}}
             :active="(request()->is('categories/' . $category->slug)) || ((request()->is('posts')) && (request()->query('category') === $category->slug) )"
-            href="/posts/?category={{ $category->slug }}&{{http_build_query(request()->except('category'))}}">{{ $category->name }}</x-dropdown-item>
+            href="/posts/?category={{ $category->slug }}&{{http_build_query(request()->except('category','page'))}}">{{ $category->name }}</x-dropdown-item>
     @endforeach
 </x-dropdown>
