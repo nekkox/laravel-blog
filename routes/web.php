@@ -50,6 +50,10 @@ Route::get('/authors/{author:username}', function (User $author) {
     ]);
 })->name('authors');
 
+//Create new user
+Route::get('/registeruser', [\App\Http\Controllers\RegisterController::class, 'create']);
+Route::post('/registeruser', [\App\Http\Controllers\RegisterController::class, 'store']);
+
 Route::get('dogs/{nameofdog?}',
 function($nameofdog = null) {
 

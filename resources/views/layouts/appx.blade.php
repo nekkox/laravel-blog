@@ -45,7 +45,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('RegisterController') }}</a>
                                 </li>
                             @endif
                         @else
@@ -72,7 +72,8 @@
             </div>
         </nav>
 
-        <main>
+        <main style="min-height: 570px">
+           <p>jkkk</p>
             @yield('content')
         </main>
     </div>

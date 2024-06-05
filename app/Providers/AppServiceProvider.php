@@ -9,7 +9,7 @@ use Nette\Utils\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * RegisterController any application services.
      */
     public function register(): void
     {
