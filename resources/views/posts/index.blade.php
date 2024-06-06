@@ -1,5 +1,4 @@
 
-
 <x-layout>
 
     @include('posts._post-header')
@@ -9,7 +8,7 @@
             @if($posts->count())
 
                 <x-post-grid :posts="$posts"/>
-{{$posts->links()}}
+                {{$posts->links()}}
             @else
                 <p class="text-center font-semibold text-pink-600 text-2xl mt-16">No Posts yet, please check back
                     later.</p>

@@ -32,6 +32,8 @@ class SessionsController extends Controller
         //redirect with flash message
 
         if(Auth::attempt($attr)){
+            //session fixation
+            session()->regenerate();
             return redirect('/posts/')->with('success', 'Welcome Back!!');
         }
 
