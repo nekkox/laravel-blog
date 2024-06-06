@@ -73,10 +73,12 @@
         </nav>
 
         <main style="min-height: 570px">
-           <p>jkkk</p>
+
             @yield('content')
         </main>
     </div>
+
+
 </body>
 </html>
 

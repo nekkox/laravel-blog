@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class RegisterController extends Controller
@@ -13,18 +14,19 @@ class RegisterController extends Controller
         return view('register.create');
     }
 
-    public function store(): View
+    public function store()
     {
 
       $attributes = request() -> validate([
             'name' =>'required|max:255',
-            'username' => 'required|max:255|min:3',
+            'username' => ['required', 'max:255', 'min:3', Rule::unique('users','username')],
             'email' => 'required|email|max:255',
             'password' => ['required','min:7', 'max:255'],
         ]);
 
+     // $attributes['password'] =bcrypt($attributes['password']);
       User::create($attributes);
-      ddd("user created");
-        return view('register.store');
+session()->flash('success', 'Your accoutn has been created successfully');
+        return redirect('/posts/');
     }
 }

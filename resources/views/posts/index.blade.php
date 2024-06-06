@@ -14,7 +14,6 @@
                 <p class="text-center font-semibold text-pink-600 text-2xl mt-16">No Posts yet, please check back
                     later.</p>
             @endif
-
         </main>
     </section>
 </x-layout>

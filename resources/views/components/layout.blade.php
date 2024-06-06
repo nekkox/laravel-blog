@@ -10,9 +10,9 @@
 <body style="font-family: Open Sans, sans-serif">
 <section class="px-6 py-8">
     <nav class="flex justify-between items-start">
-        <div >
+        <div>
             <a href={{route('MainPosts')}}>
-                <img src="/images/catLogo.png" alt="Logo" >
+                <img src="/images/catLogo.png" alt="Logo">
             </a>
         </div>
 
@@ -56,5 +56,7 @@
         </div>
     </footer>
 </section>
+
+<x-flash />
 </body>
 

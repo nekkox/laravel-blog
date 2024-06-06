@@ -50,4 +50,14 @@ class  User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    //MUTATOR - alter the data before it is set on an Eloquent model attribute
+    public function setUsernameAttribute($username){
+        $this->attributes['username'] = strtoupper($username);
+    }
+
+    //ACCESSOR - format Eloquent model attributes when you retrieve them from the database
+    public function getUsernameAttribute($username){
+        $this->attributes['username'] = strtolower($username);
+    }
+
 }
