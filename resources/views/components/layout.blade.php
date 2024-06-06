@@ -17,11 +17,23 @@
         </div>
 
         <div class="mt-8 md:mt-0 ">
-            <a href={{route('MainPosts')}} class="text-xs font-bold uppercase">Home Page</a>
+            <a href="{{route('MainPosts')}}" class="text-xs font-bold uppercase">Home Page</a>
             <div class="inline-flex">
-                <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                    Subscribe for Updates
-                </a>
+
+                @auth
+                <span class="text-s ml-6">Welcome Back, <span class="text-red-500 font-bold">{{auth()->user()->name}}</span></span>
+                    <form method="post" action="/logoutuser">
+                        @csrf
+                        <button type="submit" class="bg-blue-500 ml-8 rounded-full text-xs  text-white uppercase px-5">Log out</button>
+                    </form>
+                @else
+                    <a href="/registeruser" class="bg-blue-500 ml-3 rounded-full text-xs  text-white uppercase px-5">
+                        Register
+                    </a>
+                    <a href="/loginuser" class="bg-red-500 ml-3 rounded-full text-xs  text-white uppercase px-5">
+                        Login
+                    </a>
+                @endauth
             </div>
         </div>
     </nav>
