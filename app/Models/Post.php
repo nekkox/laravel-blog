@@ -44,6 +44,11 @@ class Post extends Model
         // now we can do : $post->author->name
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     //Creating query scope functions (automaticly access query Builder)
     public function scopeFilter($query, array $filters)
     {

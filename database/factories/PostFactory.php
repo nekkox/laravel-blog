@@ -24,10 +24,10 @@ class PostFactory extends Factory
 
             'user_id' => User::factory(),
             'category_id' => random_int(1,22),
-            'title' => $this->faker->sentence,
-            'slug' => $this->faker->slug,
-            'excerpt' => $this->faker->paragraph(2),
-            'body' => '<p>'. implode('</p><p>',[$this->faker->paragraph(6),$this->faker->paragraph(6)]).'</p>',
+            'title' => fake()->sentence(),
+            'slug' => fake()->slug(),
+            'excerpt' => fake()->paragraph(2),
+            'body' => '<p>'. implode('</p><p>',[fake()->paragraph(6),fake()->paragraph(6)]).'</p>',
         ];
     }
 }

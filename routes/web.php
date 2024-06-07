@@ -36,8 +36,12 @@ Route::get('/posts/{post}', [PostController::class, 'show'])
 
 
 Route::get('/categories/{category:slug}', function (Category $category) {
+    $posts = $category->posts()->with(['category', 'author'])->paginate(6);
+
+
     return view('posts.index', [
-        'posts' => $category->posts->load(['category', 'author']), //eager loads the given relationships
+        'posts' => $posts,
+      //  'posts' => $category->posts->load(['category', 'author']), //eager loads the given relationships
        // 'categories'=>Category::all()->load(['posts']),
         //'currentCategory' => $category,
     ]);
