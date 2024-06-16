@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionsController;
 use App\Models\Category;
@@ -19,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes();
-Route::get('/dog/{name}', function ($name){
-    return view('dog');
-});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -37,7 +36,6 @@ Route::get('/posts/{post}', [PostController::class, 'show'])
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     $posts = $category->posts()->with(['category', 'author'])->paginate(6);
-
 
     return view('posts.index', [
         'posts' => $posts,
@@ -55,6 +53,9 @@ Route::get('/authors/{author:username}', function (User $author) {
     ]);
 })->name('authors');
 
+//Posting comments
+Route::post('/posts/{post:slug}/comments',[PostCommentsController::class, 'store']);
+
 //Create new user
 Route::get('/registeruser', [\App\Http\Controllers\RegisterController::class, 'create'])->middleware('guest');
 Route::post('/registeruser', [\App\Http\Controllers\RegisterController::class, 'store'])->middleware('guest');
@@ -63,25 +64,3 @@ Route::get('/loginuser', [SessionsController::class,'create'])->middleware('gues
 Route::post('/loginuser', [SessionsController::class,'store'])->middleware('guest');
 
 Route::post('/logoutuser', [SessionsController::class,'destroy'])->middleware('auth');
-
-Route::get('dogs/{nameofdog?}',
-function($nameofdog = null) {
-
-    $dogs = ["Vego", "Beco", "Axel" ,"Vitto"];
-    $theDogs = collect($dogs);
-return view('test', ['dogs'=> $theDogs]);
-}
-
-)->name('dogs');
-
-Route::get('/json', function() {
-    return ['dog'=>'vego'];
-});
-
-Route::get('/about', function() {
-    return view('about');
-});
-
-Route::get('/contact', function() {
-    return view('contact');
-});
