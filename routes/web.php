@@ -68,26 +68,4 @@ Route::post('/loginuser', [SessionsController::class, 'store'])->middleware('gue
 
 Route::post('/logoutuser', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::post('/newsletterx', function (\App\Services\Newsletter $newsletter) {
-    request()->validate(['email' => 'required|email']);
-   /*
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us13'
-    ]);
-   */
-
-  //  $mailchimp = \App\Services\Newsletter::getClient();
-
-    try {
-        $newsletter->subscribe('email');
-    } catch (Exception $e) {
-        throw \Illuminate\Validation\ValidationException::withMessages(['email' => 'This email couldnt be added to our newsletter list']);
-    }
-    return redirect('/posts')->with('success', 'you are now singed up for newsletter!');
-
-});
-
 Route::post('/newsletter',NewsletterController::class );
