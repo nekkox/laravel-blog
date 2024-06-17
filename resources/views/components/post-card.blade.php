@@ -31,7 +31,7 @@
 
             </div>
 
-            <footer class="flex justify-between items-center mt-8">
+            <footer class="flex flex-col justify-between items-center mt-8">
                 <div class="flex items-center text-sm">
                     <img width="76" height="83" src="/images/cat_avatar.png">
                     <div class="ml-3">
@@ -39,9 +39,9 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="flex">
                     <a href="/posts/{{$post->slug}}"
-                       class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-8"
+                       class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-3"
                     >Read More</a>
                 </div>
             </footer>

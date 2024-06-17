@@ -24,7 +24,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function () { return view('welcome');})->name('root');
+Route::get('/', function () {
+    return view('welcome');
+})->name('root');
 
 Route::get('/posts', [PostController::class, 'index'])->name('MainPosts');
 
@@ -39,8 +41,8 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 
     return view('posts.index', [
         'posts' => $posts,
-      //  'posts' => $category->posts->load(['category', 'author']), //eager loads the given relationships
-       // 'categories'=>Category::all()->load(['posts']),
+        //  'posts' => $category->posts->load(['category', 'author']), //eager loads the given relationships
+        // 'categories'=>Category::all()->load(['posts']),
         //'currentCategory' => $category,
     ]);
 })->name('categories');
@@ -49,18 +51,36 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 Route::get('/authors/{author:username}', function (User $author) {
     return view('posts.index', [
         'posts' => $author->posts->load(['category', 'author']),
-       // 'categories'=>Category::all()->load(['posts'])
+        // 'categories'=>Category::all()->load(['posts'])
     ]);
 })->name('authors');
 
 //Posting comments
-Route::post('/posts/{post:slug}/comments',[PostCommentsController::class, 'store']);
+Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 //Create new user
 Route::get('/registeruser', [\App\Http\Controllers\RegisterController::class, 'create'])->middleware('guest');
 Route::post('/registeruser', [\App\Http\Controllers\RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('/loginuser', [SessionsController::class,'create'])->middleware('guest');
-Route::post('/loginuser', [SessionsController::class,'store'])->middleware('guest');
+Route::get('/loginuser', [SessionsController::class, 'create'])->middleware('guest');
+Route::post('/loginuser', [SessionsController::class, 'store'])->middleware('guest');
 
-Route::post('/logoutuser', [SessionsController::class,'destroy'])->middleware('auth');
+Route::post('/logoutuser', [SessionsController::class, 'destroy'])->middleware('auth');
+
+Route::post('/newsletter', function () {
+    request()->validate(['email' => 'required|email']);
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us13'
+    ]);
+    try {
+        $response = $mailchimp->lists->addListMember('fb6cb0ca17', ["email_address" => request('email'),
+            "status" => "subscribed",]);
+    } catch (Exception $e) {
+        throw \Illuminate\Validation\ValidationException::withMessages(['email' => 'This email couldny be added to our newsletter list']);
+    }
+    return redirect('/posts')->with('success', 'you are now singed up for newsletter!');
+
+});
