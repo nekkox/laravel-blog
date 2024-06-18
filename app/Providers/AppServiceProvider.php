@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\Newsletter;
+use App\Services\iNewsletter;
+use App\Services\MailchimpNewsletter;
 use Closure;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -17,17 +18,19 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Bind the ApiClient to the service container
-        $this->app->bind(Newsletter::class, function(){
+        $this->app->bind(iNewsletter::class, function(){
             $client = new ApiClient();
 
             $client->setConfig([
                 'apiKey' => config('services.mailchimp.key'),
                 'server' => 'us13'
             ]);
-            return new Newsletter($client);
+            return new MailchimpNewsletter($client);
         } );
 
-        // Bind the string parameter
+        //$this->app->bind(iNewsletter::class, MailchimpNewsletter::class);
+
+
 
     }
 

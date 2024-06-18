@@ -4,7 +4,7 @@ namespace App\Services;
 
 use MailchimpMarketing\ApiClient;
 
-class Newsletter
+class MailchimpNewsletter implements iNewsletter
 {
     protected ApiClient $client;
     protected string $foo;
