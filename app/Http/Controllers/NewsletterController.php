@@ -9,6 +9,7 @@ class NewsletterController extends Controller
 {
     public function __invoke(\App\Services\Newsletter $newsletter)
     {
+        
         request()->validate(['email' => 'required|email']);
 
         try {
