@@ -25,6 +25,10 @@ class Post extends Model
         return 'slug';
     }
 
+    protected $fillable =
+        ['title', 'excerpt', 'body', 'category_id','user_id','slug', 'thumbnail',
+        ];
+
     //Post belongs to a Category/ One category can have many posts
     public function category(): BelongsTo //category_id
     {

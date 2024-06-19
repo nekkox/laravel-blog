@@ -7,6 +7,7 @@ use App\Models\Post;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -42,5 +43,25 @@ class PostController extends Controller
     public function create()
     {
         return view('posts.create');
+    }
+
+    public function store()
+    {
+
+        $attributes = request()->validate([
+            'title' => 'required',
+            'thumbnail' => 'required|image',
+            'slug' => ['required', Rule::unique('posts', 'slug')],
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
+        $path = request()->file('thumbnail')->store('thumbnails');
+
+        $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = $path;
+
+        Post::create($attributes);
+        return redirect('/');
     }
 }

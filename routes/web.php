@@ -71,3 +71,4 @@ Route::post('/logoutuser', [SessionsController::class, 'destroy'])->middleware('
 Route::post('/newsletter',NewsletterController::class );
 
 Route::get('/admin/posts/create',[PostController::class, 'create'])->middleware('AdminsOnly');
+Route::post('/admin/posts',[PostController::class, 'store'])->middleware('AdminsOnly');
