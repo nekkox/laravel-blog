@@ -5,24 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
     public static string $lastReqx = '';
+
     //Show all posts
     public function index(Request $request)
     {
         /* DB::listen(function ($query){
              logger($query->sql, $query->bindings);
          });*/
-      // self::$lastReqx = request()->fullUrl();
+        // self::$lastReqx = request()->fullUrl();
         return view('posts.index')->with([
             //is 'search param in request then filter() else we get all posts
             'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString(),
-            'lastReq'=>self::$lastReqx//filter is query scope function created inside Post Model
-           // 'categories' => Category::all(),
+            'lastReq' => self::$lastReqx//filter is query scope function created inside Post Model
+            // 'categories' => Category::all(),
             //'currentCategory'=> Category::firstWhere('slug', request('category'))
         ]);
 
@@ -36,4 +38,9 @@ class PostController extends Controller
         ]);
     }
 
+    //admin only
+    public function create()
+    {
+        return view('posts.create');
+    }
 }

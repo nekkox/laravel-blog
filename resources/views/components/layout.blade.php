@@ -41,9 +41,11 @@
                         Login
                     </a>
                 @endauth
-                <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+
+                <a x-data @click.prevent="document.getElementById('email').focus()"  href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
                 </a>
+
             </div>
         </div>
     </nav>
