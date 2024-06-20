@@ -11,11 +11,6 @@ class Post extends Model
 {
     use HasFactory;
 
-    /*    protected $fillable = [
-            'title',
-            'body'
-        ];*/
-
     protected $with = ['author', 'category']; //eager loading relationships
 
     //  protected $guarded = [];
@@ -26,7 +21,7 @@ class Post extends Model
     }
 
     protected $fillable =
-        ['title', 'excerpt', 'body', 'category_id','user_id','slug', 'thumbnail',
+        ['title', 'excerpt', 'body', 'category_id', 'user_id', 'slug', 'thumbnail',
         ];
 
     //Post belongs to a Category/ One category can have many posts

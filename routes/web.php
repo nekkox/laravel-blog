@@ -71,7 +71,11 @@ Route::post('/logoutuser', [SessionsController::class, 'destroy'])->middleware('
 
 Route::post('/newsletter',NewsletterController::class );
 
-Route::get('/admin/posts/create',[PostController::class, 'create'])->middleware('AdminsOnly');
-Route::post('/admin/posts',[PostController::class, 'store'])->middleware('AdminsOnly');
-
+//Admin
+Route::post('/admin/posts',[AdminPostController::class, 'store'])->middleware('AdminsOnly');
+Route::get('/admin/posts/create',[AdminPostController::class, 'create'])->middleware('AdminsOnly');
 Route::get('/admin/posts',[AdminPostController::class, 'index'])->middleware('AdminsOnly');
+Route::get('/admin/posts/{post:id}/edit',[AdminPostController::class, 'edit'])->middleware('AdminsOnly');
+Route::patch('/admin/posts/{post:id}',[AdminPostController::class, 'update'])->middleware('AdminsOnly');
+Route::delete('/admin/posts/{post:id}',[AdminPostController::class, 'destroy'])->middleware('AdminsOnly');
+
