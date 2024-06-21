@@ -8,6 +8,7 @@ use App\Http\Controllers\SessionsController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,8 +52,13 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 
 
 Route::get('/authors/{author:username}', function (User $author) {
+  //  $posts = $author->posts()->with(['category', 'author'])->paginate(6);
+    $posts = $author->posts()->paginate(6);
+    $posts->load(['category', 'author']);
+
     return view('posts.index', [
-        'posts' => $author->posts->load(['category', 'author']),
+        'posts' => $posts
+        //'posts' => $author->posts->load(['category', 'author']),
         // 'categories'=>Category::all()->load(['posts'])
     ]);
 })->name('authors');

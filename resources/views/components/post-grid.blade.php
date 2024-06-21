@@ -6,9 +6,9 @@
         @foreach($posts->skip(1) as $post)
             {{--The Same in One line <x-post-card :post="$post" class="{{ $loop->iteration < 3 ? 'col-span-3' : 'col-span-2' }}" />--}}
             @if($loop->iteration < 3)
-                <x-post-card :post="$post" class="col-span-3"/>
+                <x-post-card :post="$post" class="col-span-3 mb-4 ml-2"/>
             @else
-                <x-post-card :post="$post" class="col-span-2"/>
+                <x-post-card :post="$post" class="col-span-2 ml-2"/>
             @endif
 
         @endforeach
