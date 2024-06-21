@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -17,6 +18,12 @@ class PostController extends Controller
     //Show all posts
     public function index(Request $request)
     {
+        //AUTHORIZATION
+        //$this->authorize('admin'); //automatically returns 403 if not authorized
+        //if the logged user is admin then do sth
+       //Gate::allows('admin');
+       //auth()->user()->can('admin');
+
         /* DB::listen(function ($query){
              logger($query->sql, $query->bindings);
          });*/

@@ -8,7 +8,8 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($posts as $post)
-                                <tr>
+
+                                <tr class="{{ $loop->even ? 'bg-blue-100' : '' }}">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="text-sm font-medium text-gray-900">
@@ -33,6 +34,7 @@
                                         </form>
                                     </td>
                                 </tr>
+
                             @endforeach
                             </tbody>
                         </table>
