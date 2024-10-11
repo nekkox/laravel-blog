@@ -8,7 +8,7 @@
                                                     alt="Head of Kitty"></h2>
 
     <p class="text-sm mt-14">
-        Another year. Another update. We're refreshing the popular Laravel series with new content.
+        Another year. Another update.
         I'm going to keep you guys up to speed with what's going on!
     </p>
 

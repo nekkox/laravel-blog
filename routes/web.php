@@ -22,13 +22,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes();
+//Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 })->name('root');
 
 Route::get('/posts', [PostController::class, 'index'])->name('MainPosts');
@@ -67,13 +67,13 @@ Route::get('/authors/{author:username}', function (User $author) {
 Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 //Create new user
-Route::get('/registeruser', [\App\Http\Controllers\RegisterController::class, 'create'])->middleware('guest');
-Route::post('/registeruser', [\App\Http\Controllers\RegisterController::class, 'store'])->middleware('guest');
+Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'create'])->middleware('guest')->name('register');
+Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'store'])->middleware('guest')->name('register');
 
-Route::get('/loginuser', [SessionsController::class, 'create'])->middleware('guest');
-Route::post('/loginuser', [SessionsController::class, 'store'])->middleware('guest');
+Route::get('/login', [SessionsController::class, 'create'])->middleware('guest')->name('login');
+Route::post('/login', [SessionsController::class, 'store'])->middleware('guest');
 
-Route::post('/logoutuser', [SessionsController::class, 'destroy'])->middleware('auth');
+Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 
 Route::post('/newsletter',NewsletterController::class );
 
